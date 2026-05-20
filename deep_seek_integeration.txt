@@ -1,0 +1,21 @@
+# DeepSeek R1 (1.5B) VS Code Integration Prompt
+
+## 🎯 Goal
+Build a VS Code extension that queries a locally hosted **DeepSeek R1: 1.5B model** instead of OpenAI, enabling:
+- Inline coding assistance (Copilot‑like).
+- Code review automation.
+- Offline CLI assistant.
+
+---
+
+## 📋 Requirements
+
+### System
+- Visual Studio Code (latest)
+- Node.js >= 18.x
+- Python >= 3.10
+- GPU drivers (CUDA/cuDNN if using NVIDIA GPU)
+
+### Python Libraries
+```bash
+pip install torch transformers accelerate fastapi uvicorn bitsandbytes

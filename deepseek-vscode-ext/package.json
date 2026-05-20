@@ -1,0 +1,38 @@
+{
+  "name": "deepseek-vscode-integration",
+  "version": "0.1.0",
+  "description": "DeepSeek R1 1.5B VS Code Integration - Complete AI coding assistant",
+  "author": "DeepSeek Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/deepseek-vscode-ext"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "python": ">=3.10"
+  },
+  "scripts": {
+    "install-backend": "cd backend && pip install -r requirements.txt",
+    "install-extension": "cd vscode-extension && npm install",
+    "install-cli": "cd cli && pip install -r requirements.txt",
+    "install-all": "npm run install-backend && npm run install-extension && npm run install-cli",
+    "start-backend": "cd backend && python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000",
+    "build-extension": "cd vscode-extension && npm run esbuild",
+    "watch-extension": "cd vscode-extension && npm run esbuild-watch",
+    "test-cli": "python cli/deepseek_cli.py health",
+    "cli": "python cli/deepseek_cli.py",
+    "dev": "concurrently \"npm run start-backend\" \"npm run watch-extension\"",
+    "lint": "cd vscode-extension && npm run lint"
+  },
+  "keywords": [
+    "deepseek",
+    "copilot",
+    "vscode",
+    "extension",
+    "ai",
+    "code-completion",
+    "offline",
+    "cli"
+  ]
+}

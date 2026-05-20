@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  deepseek-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: deepseek-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DEVICE=${DEVICE:-cpu}
+      - MODEL_NAME=deepseek-ai/deepseek-coder-1.3b-base
+      - MAX_LENGTH=2048
+      - TEMPERATURE=0.7
+      - TOP_P=0.95
+    volumes:
+      - model-cache:/root/.cache/huggingface
+      - ./backend:/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  model-cache:
+    driver: local

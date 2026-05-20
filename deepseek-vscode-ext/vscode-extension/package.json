@@ -1,0 +1,128 @@
+{
+  "name": "deepseek-copilot",
+  "displayName": "DeepSeek Copilot",
+  "description": "AI-powered code assistance with support for any Hugging Face model",
+  "version": "0.1.0",
+  "publisher": "deepseek",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "AI",
+    "Copilots"
+  ],
+  "keywords": [
+    "copilot",
+    "deepseek",
+    "ai",
+    "code-completion",
+    "offline"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "deepseek-copilot.complete",
+        "title": "DeepSeek: Complete Code",
+        "category": "DeepSeek Copilot"
+      },
+      {
+        "command": "deepseek-copilot.review",
+        "title": "DeepSeek: Review Code",
+        "category": "DeepSeek Copilot"
+      },
+      {
+        "command": "deepseek-copilot.startServer",
+        "title": "DeepSeek: Start Backend Server",
+        "category": "DeepSeek Copilot"
+      },
+      {
+        "command": "deepseek-copilot.stopServer",
+        "title": "DeepSeek: Stop Backend Server",
+        "category": "DeepSeek Copilot"
+      },
+      {
+        "command": "deepseek-copilot.listModels",
+        "title": "DeepSeek: List Available Models",
+        "category": "DeepSeek Copilot"
+      },
+      {
+        "command": "deepseek-copilot.switchModel",
+        "title": "DeepSeek: Switch Model",
+        "category": "DeepSeek Copilot"
+      },
+      {
+        "command": "deepseek-copilot.modelStatus",
+        "title": "DeepSeek: Show Model Status",
+        "category": "DeepSeek Copilot"
+      },
+      {
+        "command": "deepseek-copilot.configure",
+        "title": "DeepSeek: Configure Settings",
+        "category": "DeepSeek Copilot"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "deepseek-copilot.complete",
+        "key": "ctrl+shift+d",
+        "mac": "cmd+shift+d",
+        "when": "editorTextFocus"
+      }
+    ],
+    "configuration": {
+      "title": "DeepSeek Copilot",
+      "properties": {
+        "deepseek-copilot.serverUrl": {
+          "type": "string",
+          "default": "http://localhost:8000",
+          "description": "Backend server URL"
+        },
+        "deepseek-copilot.autoComplete": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable inline auto-completion"
+        },
+        "deepseek-copilot.temperature": {
+          "type": "number",
+          "default": 0.7,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Model temperature for generation"
+        },
+        "deepseek-copilot.maxTokens": {
+          "type": "number",
+          "default": 256,
+          "minimum": 1,
+          "maximum": 2048,
+          "description": "Maximum tokens to generate"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run esbuild-base -- --minify",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --platform=node --target=node16",
+    "esbuild": "npm run esbuild-base -- --sourcemap",
+    "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "esbuild": "^0.19.8",
+    "eslint": "^8.55.0",
+    "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "axios": "^1.6.2"
+  }
+}
